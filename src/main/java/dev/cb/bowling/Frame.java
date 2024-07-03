@@ -28,7 +28,7 @@ public class Frame {
         if (!lastFrame) {
             return pins.getFirst().getQuantityFalledPin() != 10 && pins.size() < 2;
         } else {
-            if (pins.getFirst().getQuantityFalledPin() == 10 && pins.size() < 3) {
+            if (score >= 10 && pins.size() <= 2) {
                 return true;
             } else {
                 return false;

@@ -148,4 +148,53 @@ public class FrameTest {
         // then
         assertThat(result).isEqualTo(25);
     }
+
+    @Test
+    public void Roll_LastFrame_SecondRoll_SecondRollSpare_ReturnTrue() {
+        // given
+        lastFrame = true;
+        frame = new Frame(pinGenerator, lastFrame);
+        when(pinGenerator.randomFalledPin(anyInt())).thenReturn(5 ,5);
+
+        // when
+        frame.makeRoll();
+        boolean result = frame.makeRoll();
+
+        // then
+        assertThat(result).isTrue();
+    }
+
+    @Test
+    public void Roll_LastFrame_ThirdRoll_SecondRollSpare_CheckScore() {
+        // given
+        lastFrame = true;
+        frame = new Frame(pinGenerator, lastFrame);
+        int expected = 17;
+        when(pinGenerator.randomFalledPin(anyInt())).thenReturn(6 ,4, 7);
+
+        // when
+        frame.makeRoll();
+        frame.makeRoll();
+        frame.makeRoll();
+        int result = frame.getScore();
+
+        // then
+        assertThat(result).isEqualTo(17);
+    }
+
+    @Test
+    public void Roll_LastFrame_ThirdRoll_ReturnFalse() {
+        // given
+        lastFrame = true;
+        frame = new Frame(pinGenerator, lastFrame);
+        when(pinGenerator.randomFalledPin(anyInt())).thenReturn(10, 10, 10);
+
+        // when
+        frame.makeRoll();
+        frame.makeRoll();
+        boolean result = frame.makeRoll();
+
+        // then
+        assertThat(result).isFalse();
+    }
 }
