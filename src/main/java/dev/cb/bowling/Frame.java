@@ -25,8 +25,10 @@ public class Frame {
         pins.add(new Pin(actualRoll));
         score += actualRoll;
 
-        if (pins.getLast().getQuantityFalledPin() == 10) {
-            return false;
+        if (!lastFrame) {
+            if (pins.getLast().getQuantityFalledPin() == 10 || pins.size() >= 2) {
+                return false;
+            }
         }
         return true;
     }

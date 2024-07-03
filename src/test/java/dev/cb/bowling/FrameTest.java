@@ -69,4 +69,33 @@ public class FrameTest {
         // then
         assertThat(result).isFalse();
     }
+
+    @Test
+    public void Roll_SimpleFrame_SecondRoll_ReturnFalse() {
+        // given
+        lastFrame = false;
+        frame = new Frame(pinGenerator, lastFrame);
+        when(pinGenerator.randomFalledPin(anyInt())).thenReturn(2, 2);
+
+        // when
+        frame.makeRoll();
+        boolean result = frame.makeRoll();
+
+        // then
+        assertThat(result).isFalse();
+    }
+
+    @Test
+    public void Roll_LastFrame_FirstRollStrike_ReturnTrue() {
+        // given
+        lastFrame = true;
+        frame = new Frame(pinGenerator, lastFrame);
+        when(pinGenerator.randomFalledPin(anyInt())).thenReturn(10);
+
+        // when
+        boolean result = frame.makeRoll();
+
+        // then
+        assertThat(result).isTrue();
+    }
 }
