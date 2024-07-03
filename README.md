@@ -38,21 +38,21 @@ public class Frame {
   private Generator generator;
   private List<Roll> rolls;
   
-  public Frame(Generator generator, boolean lastFrame) {
+  public Frame(PinGenerator pinGenerator, boolean lastFrame) {
     this.lastFrame = lastFrame;
     this.generator = generator;
   }
   
-  public boolean canMakeRoll(){
+  public boolean makeRoll(){
     throw new NotImplementedException();
   }
 }
 ```
-3. L'interface ***Generator***
+3. L'interface ***PinGenerator***
 
 ```java
-public interface Generator {
-  public int randomPin(int max);
+public interface PinGenerator {
+  int randomPin(int max);
 }
 ```
 
