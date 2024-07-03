@@ -49,10 +49,9 @@ public class Frame {
 }
 ```
 3. L'interface ***PinGenerator***
-
 ```java
 public interface PinGenerator {
-  int randomPin(int max);
+  int randomFalledPin(int max);
 }
 ```
 
