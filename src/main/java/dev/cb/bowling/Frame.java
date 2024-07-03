@@ -26,11 +26,14 @@ public class Frame {
         score += actualRoll;
 
         if (!lastFrame) {
-            if (pins.getLast().getQuantityFalledPin() == 10 || pins.size() >= 2) {
+            return pins.getFirst().getQuantityFalledPin() != 10 && pins.size() < 2;
+        } else {
+            if (pins.getFirst().getQuantityFalledPin() == 10 && pins.size() < 3) {
+                return true;
+            } else {
                 return false;
             }
         }
-        return true;
     }
 
     public int getScore() {

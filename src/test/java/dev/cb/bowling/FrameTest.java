@@ -115,4 +115,19 @@ public class FrameTest {
         // then
         assertThat(result).isEqualTo(expected);
     }
+
+    @Test
+    public void Roll_LastFrame_SecondRoll_FirstRollStrike_ReturnTrue() {
+        // given
+        lastFrame = true;
+        frame = new Frame(pinGenerator, lastFrame);
+        when(pinGenerator.randomFalledPin(anyInt())).thenReturn(10 ,5);
+
+        // when
+        frame.makeRoll();
+        boolean result = frame.makeRoll();
+
+        // then
+        assertThat(result).isTrue();
+    }
 }
