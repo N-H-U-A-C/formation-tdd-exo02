@@ -1,7 +1,5 @@
 package dev.cb.bowling;
 
-import jdk.jshell.spi.ExecutionControl;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,9 +8,6 @@ public class Frame {
     private boolean lastFrame;
     private PinGenerator pinGenerator;
     private List<Pin> pins = new ArrayList<Pin>();
-
-    public Frame() {
-    }
 
     public Frame(PinGenerator pinGenerator, boolean lastFrame) {
         this.lastFrame = lastFrame;
@@ -28,11 +23,7 @@ public class Frame {
         if (!lastFrame) {
             return pins.getFirst().getQuantityFalledPin() != 10 && pins.size() < 2;
         } else {
-            if (score >= 10 && pins.size() <= 2) {
-                return true;
-            } else {
-                return false;
-            }
+            return score >= 10 && pins.size() <= 2;
         }
     }
 
