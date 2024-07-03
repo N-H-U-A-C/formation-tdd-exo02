@@ -24,14 +24,14 @@ public class Frame {
         int actualRoll = pinGenerator.randomFalledPin(maxRoll);
         pins.add(new Pin(actualRoll));
         score += actualRoll;
+
+        if (pins.getLast().getQuantityFalledPin() == 10) {
+            return false;
+        }
         return true;
     }
 
     public int getScore() {
         return score;
-    }
-
-    public void setLastFrame(boolean lastFrame) {
-        this.lastFrame = lastFrame;
     }
 }
