@@ -24,10 +24,10 @@ Les tests à écrire pour doivent couvrir les scénarios suivants :
 ## HELP
 
 ### Structure des classes
-1. La classe ***Roll***
+1. La classe ***Pin***
 ```java
-public class Roll {
-  private int numberStandingPin;
+public class Pin {
+  private int quantityFalledPin;
 }
 ```
 2. La classe ***Frame***
@@ -35,12 +35,12 @@ public class Roll {
 public class Frame {
   private int score;
   private boolean lastFrame;
-  private Generator generator;
-  private List<Roll> rolls;
+  private PinGenerator pinGenerator;
+  private List<Pin> pins;
   
   public Frame(PinGenerator pinGenerator, boolean lastFrame) {
     this.lastFrame = lastFrame;
-    this.generator = generator;
+    this.pinGenerator = pinGenerator;
   }
   
   public boolean makeRoll(){
