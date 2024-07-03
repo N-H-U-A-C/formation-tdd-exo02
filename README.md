@@ -27,7 +27,7 @@ Les tests à écrire pour doivent couvrir les scénarios suivants :
 1. La classe ***Roll***
 ```java
 public class Roll {
-  private int pins;
+  private int numberStandingPin;
 }
 ```
 2. La classe ***Frame***

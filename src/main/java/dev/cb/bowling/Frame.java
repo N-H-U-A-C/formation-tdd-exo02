@@ -2,20 +2,36 @@ package dev.cb.bowling;
 
 import jdk.jshell.spi.ExecutionControl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Frame {
     private int score;
     private boolean lastFrame;
     private PinGenerator pinGenerator;
-    private List<Roll> rolls;
+    private List<Pin> pins = new ArrayList<Pin>();
+
+    public Frame() {
+    }
 
     public Frame(PinGenerator pinGenerator, boolean lastFrame) {
         this.lastFrame = lastFrame;
-        this.pinGenerator = this.pinGenerator;
+        this.pinGenerator = pinGenerator;
     }
 
-    public boolean makeRoll() throws ExecutionControl.NotImplementedException {
-        throw new ExecutionControl.NotImplementedException("Method not implemented");
+    public boolean makeRoll() {
+        int maxRoll = pins.isEmpty() ? 0 : 10 - pins.getLast().getQuantityFalledPin();
+        int actualRoll = pinGenerator.randomFalledPin(maxRoll);
+        pins.add(new Pin(actualRoll));
+        score += actualRoll;
+        return true;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public void setLastFrame(boolean lastFrame) {
+        this.lastFrame = lastFrame;
     }
 }
