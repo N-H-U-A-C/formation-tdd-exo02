@@ -7,7 +7,7 @@ public class Frame {
     private int score;
     private boolean lastFrame;
     private PinGenerator pinGenerator;
-    private List<Pin> pins = new ArrayList<Pin>();
+    private List<Pin> pins = new ArrayList<>();
 
     public Frame(PinGenerator pinGenerator, boolean lastFrame) {
         this.lastFrame = lastFrame;
@@ -15,11 +15,22 @@ public class Frame {
     }
 
     public boolean makeRoll() {
-        int maxRoll = pins.isEmpty() ? 0 : 10 - pins.getLast().getQuantityFalledPin();
-        int actualRoll = pinGenerator.randomFalledPin(maxRoll);
+        int actualRoll = pinGenerator.randomFalledPin(getMaxRoll());
         pins.add(new Pin(actualRoll));
         score += actualRoll;
 
+        return canMakeNewRoll();
+    }
+
+    private int getMaxRoll() {
+        if (pins.isEmpty() || score >= 10) {
+            return 10;
+        } else {
+            return 10 - pins.getLast().getQuantityFalledPin();
+        }
+    }
+
+    private boolean canMakeNewRoll() {
         if (!lastFrame) {
             return pins.getFirst().getQuantityFalledPin() != 10 && pins.size() < 2;
         } else {

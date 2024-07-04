@@ -3,13 +3,10 @@ package dev.cb.bowling;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -19,9 +16,14 @@ public class FrameTest {
     @Mock
     private PinGenerator pinGenerator;
     private boolean lastFrame;
+    private int maxRoll;
+    private int firstRoll;
+    private int secondRoll;
+    private int thirdRoll;
 
     @BeforeEach
     void setUp() {
+        maxRoll = 10;
     }
 
     // SIMPLE FRAME
@@ -30,8 +32,9 @@ public class FrameTest {
         // given
         lastFrame = false;
         frame = new Frame(pinGenerator, lastFrame);
-        int expected = 5;
-        when(pinGenerator.randomFalledPin(anyInt())).thenReturn(5);
+        firstRoll = 5;
+        int expected = firstRoll;
+        when(pinGenerator.randomFalledPin(maxRoll)).thenReturn(firstRoll);
 
         // when
         frame.makeRoll();
@@ -46,7 +49,8 @@ public class FrameTest {
         // given
         lastFrame = false;
         frame = new Frame(pinGenerator, lastFrame);
-        when(pinGenerator.randomFalledPin(anyInt())).thenReturn(2);
+        firstRoll = 2;
+        when(pinGenerator.randomFalledPin(maxRoll)).thenReturn(firstRoll);
 
         // when
         boolean result = frame.makeRoll();
@@ -60,7 +64,8 @@ public class FrameTest {
         // given
         lastFrame = false;
         frame = new Frame(pinGenerator, lastFrame);
-        when(pinGenerator.randomFalledPin(anyInt())).thenReturn(10);
+        firstRoll = 10;
+        when(pinGenerator.randomFalledPin(maxRoll)).thenReturn(firstRoll);
 
         // when
         boolean result = frame.makeRoll();
@@ -74,8 +79,11 @@ public class FrameTest {
         // given
         lastFrame = false;
         frame = new Frame(pinGenerator, lastFrame);
-        int expected = 7;
-        when(pinGenerator.randomFalledPin(anyInt())).thenReturn(6, 1);
+        firstRoll = 6;
+        secondRoll = 1;
+        int expected = firstRoll + secondRoll;
+        when(pinGenerator.randomFalledPin(maxRoll)).thenReturn(firstRoll);
+        when(pinGenerator.randomFalledPin(maxRoll - firstRoll)).thenReturn(secondRoll);
 
         // when
         frame.makeRoll();
@@ -91,7 +99,10 @@ public class FrameTest {
         // given
         lastFrame = false;
         frame = new Frame(pinGenerator, lastFrame);
-        when(pinGenerator.randomFalledPin(anyInt())).thenReturn(2, 2);
+        firstRoll = 2;
+        secondRoll = 2;
+        when(pinGenerator.randomFalledPin(maxRoll)).thenReturn(firstRoll);
+        when(pinGenerator.randomFalledPin(maxRoll - firstRoll)).thenReturn(secondRoll);
 
         // when
         frame.makeRoll();
@@ -107,8 +118,9 @@ public class FrameTest {
         // given
         lastFrame = true;
         frame = new Frame(pinGenerator, lastFrame);
-        int expected = 5;
-        when(pinGenerator.randomFalledPin(anyInt())).thenReturn(5);
+        firstRoll = 5;
+        int expected = firstRoll;
+        when(pinGenerator.randomFalledPin(maxRoll)).thenReturn(firstRoll);
 
         // when
         frame.makeRoll();
@@ -123,7 +135,8 @@ public class FrameTest {
         // given
         lastFrame = true;
         frame = new Frame(pinGenerator, lastFrame);
-        when(pinGenerator.randomFalledPin(anyInt())).thenReturn(2);
+        firstRoll = 2;
+        when(pinGenerator.randomFalledPin(maxRoll)).thenReturn(firstRoll);
 
         // when
         boolean result = frame.makeRoll();
@@ -137,7 +150,8 @@ public class FrameTest {
         // given
         lastFrame = true;
         frame = new Frame(pinGenerator, lastFrame);
-        when(pinGenerator.randomFalledPin(anyInt())).thenReturn(10);
+        firstRoll = 10;
+        when(pinGenerator.randomFalledPin(maxRoll)).thenReturn(firstRoll);
 
         // when
         boolean result = frame.makeRoll();
@@ -151,8 +165,11 @@ public class FrameTest {
         // given
         lastFrame = true;
         frame = new Frame(pinGenerator, lastFrame);
-        int expected = 7;
-        when(pinGenerator.randomFalledPin(anyInt())).thenReturn(6, 1);
+        firstRoll = 6;
+        secondRoll = 1;
+        int expected = firstRoll + secondRoll;
+        when(pinGenerator.randomFalledPin(maxRoll)).thenReturn(firstRoll);
+        when(pinGenerator.randomFalledPin(maxRoll - firstRoll)).thenReturn(secondRoll);
 
         // when
         frame.makeRoll();
@@ -168,7 +185,10 @@ public class FrameTest {
         // given
         lastFrame = true;
         frame = new Frame(pinGenerator, lastFrame);
-        when(pinGenerator.randomFalledPin(anyInt())).thenReturn(5, 3);
+        firstRoll = 5;
+        secondRoll = 3;
+        when(pinGenerator.randomFalledPin(maxRoll)).thenReturn(firstRoll);
+        when(pinGenerator.randomFalledPin(maxRoll - firstRoll)).thenReturn(secondRoll);
 
         // when
         frame.makeRoll();
@@ -183,8 +203,10 @@ public class FrameTest {
         // given
         lastFrame = true;
         frame = new Frame(pinGenerator, lastFrame);
-        int expected = 15;
-        when(pinGenerator.randomFalledPin(anyInt())).thenReturn(10 ,5);
+        firstRoll = 10;
+        secondRoll = 5;
+        int expected = firstRoll + secondRoll;
+        when(pinGenerator.randomFalledPin(maxRoll)).thenReturn(firstRoll).thenReturn(secondRoll);
 
         // when
         frame.makeRoll();
@@ -200,7 +222,9 @@ public class FrameTest {
         // given
         lastFrame = true;
         frame = new Frame(pinGenerator, lastFrame);
-        when(pinGenerator.randomFalledPin(anyInt())).thenReturn(10 ,5);
+        firstRoll = 10;
+        secondRoll = 5;
+        when(pinGenerator.randomFalledPin(maxRoll)).thenReturn(firstRoll).thenReturn(secondRoll);
 
         // when
         frame.makeRoll();
@@ -215,8 +239,11 @@ public class FrameTest {
         // given
         lastFrame = true;
         frame = new Frame(pinGenerator, lastFrame);
-        int expected = 10;
-        when(pinGenerator.randomFalledPin(anyInt())).thenReturn(5 ,5);
+        firstRoll = 5;
+        secondRoll = 5;
+        int expected = firstRoll + secondRoll;
+        when(pinGenerator.randomFalledPin(maxRoll)).thenReturn(firstRoll);
+        when(pinGenerator.randomFalledPin(maxRoll - firstRoll)).thenReturn(secondRoll);
 
         // when
         frame.makeRoll();
@@ -232,7 +259,10 @@ public class FrameTest {
         // given
         lastFrame = true;
         frame = new Frame(pinGenerator, lastFrame);
-        when(pinGenerator.randomFalledPin(anyInt())).thenReturn(5 ,5);
+        firstRoll = 5;
+        secondRoll = 5;
+        when(pinGenerator.randomFalledPin(maxRoll)).thenReturn(firstRoll);
+        when(pinGenerator.randomFalledPin(maxRoll - firstRoll)).thenReturn(secondRoll);
 
         // when
         frame.makeRoll();
@@ -247,8 +277,11 @@ public class FrameTest {
         // given
         lastFrame = true;
         frame = new Frame(pinGenerator, lastFrame);
-        int expected = 25;
-        when(pinGenerator.randomFalledPin(anyInt())).thenReturn(10 ,10, 5);
+        firstRoll = 10;
+        secondRoll = 10;
+        thirdRoll = 5;
+        int expected = firstRoll + secondRoll + thirdRoll;
+        when(pinGenerator.randomFalledPin(maxRoll)).thenReturn(firstRoll, secondRoll, thirdRoll);
 
         // when
         frame.makeRoll();
@@ -257,7 +290,7 @@ public class FrameTest {
         int result = frame.getScore();
 
         // then
-        assertThat(result).isEqualTo(25);
+        assertThat(result).isEqualTo(expected);
     }
 
     @Test
@@ -265,7 +298,10 @@ public class FrameTest {
         // given
         lastFrame = true;
         frame = new Frame(pinGenerator, lastFrame);
-        when(pinGenerator.randomFalledPin(anyInt())).thenReturn(10, 10, 10);
+        firstRoll = 10;
+        secondRoll = 10;
+        thirdRoll = 5;
+        when(pinGenerator.randomFalledPin(maxRoll)).thenReturn(firstRoll, secondRoll, thirdRoll);
 
         // when
         frame.makeRoll();
@@ -281,8 +317,12 @@ public class FrameTest {
         // given
         lastFrame = true;
         frame = new Frame(pinGenerator, lastFrame);
+        firstRoll = 6;
+        secondRoll = 4;
+        thirdRoll = 7;
         int expected = 17;
-        when(pinGenerator.randomFalledPin(anyInt())).thenReturn(6 ,4, 7);
+        when(pinGenerator.randomFalledPin(maxRoll)).thenReturn(firstRoll, thirdRoll);
+        when(pinGenerator.randomFalledPin(maxRoll - firstRoll)).thenReturn(secondRoll);
 
         // when
         frame.makeRoll();
@@ -291,7 +331,7 @@ public class FrameTest {
         int result = frame.getScore();
 
         // then
-        assertThat(result).isEqualTo(17);
+        assertThat(result).isEqualTo(expected);
     }
 
     @Test
@@ -299,7 +339,10 @@ public class FrameTest {
         // given
         lastFrame = true;
         frame = new Frame(pinGenerator, lastFrame);
-        when(pinGenerator.randomFalledPin(anyInt())).thenReturn(5, 5, 10);
+        firstRoll = 5;
+        secondRoll = 5;
+        thirdRoll = 10;
+        when(pinGenerator.randomFalledPin(maxRoll)).thenReturn(firstRoll, secondRoll, thirdRoll);
 
         // when
         frame.makeRoll();
